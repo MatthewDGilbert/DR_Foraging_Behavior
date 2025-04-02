@@ -18,7 +18,10 @@ WINTER FORAGING BEHAVIOR OF NEOTROPICAL MIGRANTS AND RESIDENTS MAY REVEAL NICHE 
 
 ## Supplemental Information
 
-**Figure S1:** Map of the Dominican Republic, with La Altagracia, Punta Cana, with the boundaries of the study area marked. 
+**Figure S1:** Map of the Dominican Republic, with La Altagracia, Punta Cana, with the boundaries of the study area marked.
+
+**Figure S2:** Box plot showing the stratification of foraging height within the canopy for each focal species. Each point represents the height at which the foraging attack occurred. 
+
 
 ## Plot Components
 
