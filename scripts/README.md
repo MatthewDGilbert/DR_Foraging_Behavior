@@ -3,7 +3,7 @@ ASSESSING VULNERABILITY OF EASTERN NORTH AMERICAN LANDBIRDS TO CLIMATE AND LAND 
 
 ### Raw_data_figures.R
 
-This script generates both the stacked bar plots of the foraging substrate and technique for each species as well as the 2-D box-and-whisker plot showing the confidence intervals around the mean values for bird height and canopy height (i.e. habitat maturity)
+This script generates both the stacked bar plots of the foraging substrate and technique for each species as well as the 2-D box-and-whisker plot showing the confidence intervals around the mean values for bird height and canopy height (i.e. habitat maturity). It also plots a figure showing the height stratification across species. 
 
         INPUT: 
         Sorted_Foraging_Technique.csv
@@ -14,6 +14,7 @@ This script generates both the stacked bar plots of the foraging substrate and t
         Figure 1
         Figure 2
         Figure 4
+        Figure S2
         
 ### Pairwise_differences.R
 
