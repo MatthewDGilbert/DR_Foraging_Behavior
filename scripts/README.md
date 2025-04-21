@@ -12,8 +12,8 @@ This script generates both the stacked bar plots of the foraging substrate and t
         
         OUTPUT: 
         Figure 1
-        Figure 2
-        Figure 4
+        Figure 2A
+        Figure 3A
         Figure S2
         
 ### Pairwise_differences.R
@@ -25,8 +25,8 @@ This script computes a series of Fisher's Exact Tests between each species pairi
         Sorted_Foraging_Substrate_Combined.csv
         
         OUTPUT: 
-        Figure 3
-        Figure 5
+        Figure 2B
+        Figure 3B
 
 ### map.R
 
