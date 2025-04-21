@@ -6,13 +6,13 @@ WINTER FORAGING BEHAVIOR OF NEOTROPICAL MIGRANTS AND RESIDENTS MAY REVEAL NICHE 
 **Figure 1**: Plot of means and 95% confidence intervals for canopy height (m) and proportional bird height within canopy (bird height / canopy height) for each migrant and resident species. Species abbreviations are as follows: BBTO – Broad-billed Tody, BWVI – Black-whiskered Vireo, PAWA – Palm Warbler, YRWA – Yellow-rumped Warbler, OVEN – Ovenbird, PRAW – Prairie Warbler, NOPA – Northern Parula, BAWW – Black-and-white Warbler, AMRE – American Redstart, CMWA – Cape May Warbler. Due to varying sample size, the width of confidence intervals in figures does not represent the breadth of the niche, just the confidence in the mean value. 
 
 
-**Figure 2:** Stacked bar plot for ratios of observed foraging attack techniques between species. 
+**Figure 2A:** Stacked bar plot for ratios of observed foraging attack techniques between species. 
 
-**Figure 3:** Results of pairwise Fisher’s exact tests for significant differences in ratios of foraging attack techniques observed. P-values are adjusted for multiple comparisons with Bonferroni.   
+**Figure 2B:** Results of pairwise Fisher’s exact tests for significant differences in ratios of foraging attack techniques observed. P-values are adjusted for multiple comparisons with Bonferroni.   
 
-**Figure 4:** Stacked Bar Plot showing the proportion of foraging attempts made on/from each substrate classification by species.  
+**Figure 3A:** Stacked Bar Plot showing the proportion of foraging attempts made on/from each substrate classification by species.  
 
-**Figure 5:** Results of pairwise Fisher’s exact tests for significant differences in ratios of foraging substrates observed. P-values are adjusted for multiple comparisons with Bonferroni. Because residents show clear differences in foraging technique (see figure 3), only pairwise comparisons between migrant warblers are shown.
+**Figure 3B:** Results of pairwise Fisher’s exact tests for significant differences in ratios of foraging substrates observed. P-values are adjusted for multiple comparisons with Bonferroni. Because residents show clear differences in foraging technique (see figure 2B), only pairwise comparisons between migrant warblers are shown.
 
 
 
