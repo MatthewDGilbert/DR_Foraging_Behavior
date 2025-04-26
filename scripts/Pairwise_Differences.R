@@ -14,21 +14,28 @@ library(tidyr)
 library(reshape2)
 library(cowplot)
 
-Mar_3_data <- read.csv("Unsorted_Full_Dataset.csv", header = T, na.strings = " ")
-Combined_Location = read.csv("Sorted_Foraging_Substrate_Combined.csv", header=F)
+# Set working directory to project directory.
+
+raw_data <- read.csv("data/Unsorted_Full_Dataset.csv", header = T, na.strings = " ")
+Combined_Location = read.csv("data/Sorted_Foraging_Substrate_Combined.csv", header=F)
 
 set.seed(444)
 
 
 #______________________________________________________________________________
 
-#                        FISHERS EXACT TEST for TECHNIQUE
+#                        FISHERS EXACT TEST for FORAGING TECHNIQUE
 
-# Ensure Mar_3_data is used
-cleaned_data <- Mar_3_data[!is.na(Mar_3_data$Foraging.Behavior) & !is.null(Mar_3_data$Foraging.Behavior), ]
+# Step 1. Tidy up database ----
+
+# Remove empty records.
+cleaned_data <- raw_data[!is.na(raw_data$Foraging.Behavior) & !is.null(raw_data$Foraging.Behavior), ]
 
 # Get unique species names
 species <- unique(cleaned_data$Species)
+
+
+# Step 2. Create distance matrix and pairwise comparisons ----
 
 # Create an empty matrix to store raw p-values
 pairwise_pvals <- matrix(NA, nrow = length(species), ncol = length(species), 
@@ -57,7 +64,10 @@ for (i in 1:(length(species) - 1)) {
 pairwise_df <- melt(pairwise_pvals, varnames = c("Species1", "Species2"), value.name = "P_Value")
 pairwise_df <- pairwise_df[!is.na(pairwise_df$P_Value), ]
 
-# Adjust p-values for multiple comparisons (Benjamini-Hochberg FDR)
+
+# Step 3: Generate p-values for multiple comparisons ----
+
+# method = fdr (Benjamini-Hochberg)
 pairwise_df$Adjusted_P <- p.adjust(pairwise_df$P_Value, method = "fdr")
 pairwise_df$Adjusted_P <- pairwise_df$P_Value * nrow(pairwise_df)
 
@@ -67,6 +77,9 @@ adjusted_pval_table$Adjusted_P <- round(adjusted_pval_table$Adjusted_P, 3)
 
 # Print the table
 print(adjusted_pval_table)
+
+
+# Step 4: Generate table for figures ----
 
 # Reorder species to place BBTO and BWVI first
 species_order <- c("BBTO", "BWVI", setdiff(unique(adjusted_pval_table$Species1), c("BBTO", "BWVI")))
@@ -78,7 +91,6 @@ adjusted_pval_table$Significance <- cut(
   adjusted_pval_table$Adjusted_P,
   breaks = c(-Inf, 0.001, 0.01, 0.05, Inf),
   labels = c("P < 0.001", "P < 0.01", "P < 0.05", "Not Significant"))
-
 
 figure2B <- ggplot(adjusted_pval_table, aes(Species1, Species2, fill = Significance)) +
   geom_tile(color = "white") +
