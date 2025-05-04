@@ -79,7 +79,7 @@ adjusted_pval_table$Adjusted_P <- round(adjusted_pval_table$Adjusted_P, 3)
 print(adjusted_pval_table)
 
 
-# Step 4: Generate table for figures ----
+# Step 4: Generate table for figures and figures ----
 
 # Reorder species to place BBTO and BWVI first
 species_order <- c("BBTO", "BWVI", setdiff(unique(adjusted_pval_table$Species1), c("BBTO", "BWVI")))
@@ -101,7 +101,7 @@ figure2B <- ggplot(adjusted_pval_table, aes(Species1, Species2, fill = Significa
       "P < 0.01" = "royalblue3",
       "P < 0.001" = "darkblue"),
     name = "Significance") +
-  theme_minimal() +
+  theme_classic() +
   theme(
     axis.text.x = element_text(angle = 30, hjust = 1, size = 16, color = "black", face = ifelse(levels(sorted_data$Species) %in% c("BBTO", "BWVI"), "bold", "plain")),  # Larger x-axis labels
     axis.text.y = element_text(size = 16, color = "black", face = ifelse(levels(sorted_data$Species) %in% c("BBTO", "BWVI"), "bold", "plain")),                        # Larger y-axis labels
@@ -114,6 +114,7 @@ figure2B <- ggplot(adjusted_pval_table, aes(Species1, Species2, fill = Significa
     #title = "Adjusted Pairwise Fisher's Test for Foraging Technique",
     x = "\nSpecies",
     y = "Species\n")
+
 figure2B <- ggdraw(figure2B) + draw_plot_label(label = "B", x = 0.005, y = 0.98, size = 22, fontface = "bold")  # adjust x, y as needed
 figure2B
 
