@@ -5,22 +5,19 @@
 #
 # Created by Matthew Gilbert, Nov 10 2023
 # Last edited by Matthew Gilbert, Apr 1 2025
-#                                
+# Validated by K.Navarro-Velez May 5th 2025                            
 #______________________________________________________________________________
 
-# Install required packages if not already installed
-if (!require("sf")) install.packages("sf")
-if (!require("ggplot2")) install.packages("ggplot2")
-if (!require("rnaturalearth")) install.packages("rnaturalearth")
-if (!require("rnaturalearthhires")) install.packages("rnaturalearthhires")
+# Set working directory to project directory.
 
+# Install required packages if not already installed
 library(sf)
 library(ggplot2)
 library(rnaturalearth)
 library(rnaturalearthhires)
 
-# Set up file path for the KML file
-kml_file <- "FPC.kml"
+# Step 1: Set up file path for the KML file
+kml_file <- file.path("Figures/FPC.kml")
 
 # Load the KML shapefile
 fpc_shape <- st_read(kml_file)
@@ -82,6 +79,10 @@ theme(
   #axis.ticks = element_blank(), # Remove axis ticks
   axis.title = element_blank()) # Remove axis titles
 
-ggsave(filename = "FigureS1.png", plot = map, width = 7, height = 5, dpi = 1000, units = "in")
+ggsave(filename = "FigureS1.jpeg", plot = map, width = 7, height = 5, dpi = 1000, units = "in")
 
+
+#_______________________________________________________________________________________________________
+# End of script.
+#_______________________________________________________________________________________________________
 

@@ -5,7 +5,7 @@
 #
 # Created by Matthew Gilbert, Nov 12 2024
 # Last edited by Matthew Gilbert, Apr 1 2025
-#                                
+# Validated by K.Navarro-Velez May 5th 2025                               
 #______________________________________________________________________________
 
 library(ggplot2)
@@ -90,16 +90,16 @@ adjusted_pval_table$Species2 <- factor(adjusted_pval_table$Species2, levels = sp
 adjusted_pval_table$Significance <- cut(
   adjusted_pval_table$Adjusted_P,
   breaks = c(-Inf, 0.001, 0.01, 0.05, Inf),
-  labels = c("P < 0.001", "P < 0.01", "P < 0.05", "Not Significant"))
+  labels = c("p < 0.001", "p < 0.01", "p < 0.05", "Not Significant"))
 
 figure2B <- ggplot(adjusted_pval_table, aes(Species1, Species2, fill = Significance)) +
   geom_tile(color = "white") +
   scale_fill_manual(
     values = c(
       "Not Significant" = "gray80",
-      "P < 0.05" = "#5DADE2",
-      "P < 0.01" = "royalblue3",
-      "P < 0.001" = "darkblue"),
+      "p < 0.05" = "#5DADE2",
+      "p < 0.01" = "royalblue3",
+      "p < 0.001" = "darkblue"),
     name = "Significance") +
   theme_classic() +
   theme(
@@ -115,18 +115,21 @@ figure2B <- ggplot(adjusted_pval_table, aes(Species1, Species2, fill = Significa
     x = "\nSpecies",
     y = "Species\n")
 
-figure2B <- ggdraw(figure2B) + draw_plot_label(label = "B", x = 0.005, y = 0.98, size = 22, fontface = "bold")  # adjust x, y as needed
-figure2B
 
-ggsave(filename = "Figure2B.png", plot = figure2B, width = 10, height = 6, dpi = 1000, units = "in")
+figure2B <- ggdraw(figure2B) + draw_plot_label(label = "B", x = 0.005, y = 0.98, size = 22, fontface = "bold")  # adjust x, y as needed
+
+ggsave(filename = "Figure2B.jpeg", plot = figure2B, width = 10, height = 6, dpi = 1000, units = "in")
+
+
 
 
 
 #______________________________________________________________________________
 
-#                        FISHERS EXACT TEST for SUBSTRATE
+#                        FISHERS EXACT TEST for SUBSTRATE ----
 
-# Filter out BBTO and BWVI species and remove missing data
+
+# Step 1: Filter out BBTO and BWVI species and remove missing data ----
 filtered_data <- Combined_Location %>%
   filter(!V1 %in% c("BBTO", "BWVI")) %>%
   drop_na(V1, V2, V3)  # Ensure no missing values in Species (V1), Foraging_Type (V2), or Count (V3)
@@ -135,7 +138,7 @@ filtered_data <- Combined_Location %>%
 species <- unique(filtered_data$V1)
 #species <- c("AMRE", "NOPA", "BAWW")
 
-# Create an empty matrix to store raw p-values
+# Step 2: Create an empty matrix to store raw p-values ----
 pairwise_pvals <- matrix(NA, nrow = length(species), ncol = length(species), 
                          dimnames = list(species, species))
 
@@ -163,7 +166,7 @@ for (i in 1:(length(species) - 1)) {
 pairwise_df <- melt(pairwise_pvals, varnames = c("Species1", "Species2"), value.name = "P_Value")
 pairwise_df <- pairwise_df[!is.na(pairwise_df$P_Value), ]
 
-# Adjust p-values using Bonferroni correction (multiply by number of comparisons)
+# Step 3: Adjust p-values using Bonferoni correction (multiply by number of comparisons)----
 n_comparisons <- nrow(pairwise_df)
 pairwise_df$Adjusted_P <- pairwise_df$P_Value * n_comparisons
 
@@ -171,17 +174,17 @@ pairwise_df$Adjusted_P <- pairwise_df$P_Value * n_comparisons
 pairwise_df$Significance <- cut(
   pairwise_df$Adjusted_P,
   breaks = c(-Inf, 0.001, 0.01, 0.05, Inf),
-  labels = c("P < 0.001", "P < 0.01", "P < 0.05", "Not Significant"))
+  labels = c("p < 0.001", "p < 0.01", "p < 0.05", "Not Significant"))
 
-# Plot the heatmap of adjusted p-values
+# Step 4: Plot the heatmap of adjusted p-values ----
 figure3B <- ggplot(pairwise_df, aes(Species1, Species2, fill = Significance)) +
   geom_tile(color = "white") +
   scale_fill_manual(
     values = c(
       "Not Significant" = "gray80",
-      "P < 0.05" = "#5DADE2",
-      "P < 0.01" = "royalblue3",
-      "P < 0.001" = "darkblue"
+      "p < 0.05" = "#5DADE2",
+      "p < 0.01" = "royalblue3",
+      "p < 0.001" = "darkblue"
     ),
     name = "Significance"
   ) +
@@ -200,15 +203,9 @@ figure3B <- ggplot(pairwise_df, aes(Species1, Species2, fill = Significance)) +
     y = "Species\n")
 
 figure3B <- ggdraw(figure3B) + draw_plot_label(label = "B", x = 0.005, y = 0.98, size = 22, fontface = "bold")  # adjust x, y as needed
-figure3B
 
-ggsave(filename = "Figure3B.png", plot = figure3B, width = 10, height = 5.3, dpi = 1000, units = "in")
+ggsave(filename = "Figure3B.jpeg", plot = figure3B, width = 10, height = 5.3, dpi = 1000, units = "in")
 
-
-#______________________________________________________________________________
-#______________________________________________________________________________
-#______________________________________________________________________________
-#______________________________________________________________________________
-#______________________________________________________________________________
-#______________________________________________________________________________
-#______________________________________________________________________________
+#_______________________________________________________________________________________________________
+# End of script.
+#_______________________________________________________________________________________________________

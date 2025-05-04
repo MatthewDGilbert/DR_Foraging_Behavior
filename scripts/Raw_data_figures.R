@@ -5,13 +5,11 @@
 #
 # Created by Matthew Gilbert, Feb 15 2023
 # Last edited by Matthew Gilbert, Apr 2 2025
-#                                
+# Validated by K.Navarro-Velez May 5th 2025                                
 #______________________________________________________________________________
 
-#                                   SETUP
 
-# Set Working directory to folder containing data and R scripts
-setwd("~/Desktop/dominican_republic")
+# Set working directory to project directory.
 
 # load libraries
 library(dplyr)
@@ -23,29 +21,29 @@ library(ggrepel)
 
 
 # Load data frame from folder
-Stacked = read.csv("Sorted_Foraging_Technique.csv", header=F)
-Combined_Location = read.csv("Sorted_Foraging_Substrate.csv", header=F)
-unsorted_data = read.csv("Unsorted_Reduced_Dataset.csv", header=T)
+Stacked = read.csv("data/Sorted_Foraging_Technique.csv", header=F)
+Combined_Location = read.csv("data/Sorted_Foraging_Substrate.csv", header=F)
+unsorted_data = read.csv("data/Unsorted_Reduced_Dataset.csv", header=T)
 
 
 #______________________________________________________________________________
 
-#                          FORAGING BEHAVIOR BAR PLOT
+#                          FORAGING TECHNIQUE BAR PLOT ----
 
-# create a dataset
+# Step 1: create the dataframe ---
 Species <- c(rep("AMRE" , 8) , rep("BAWW" , 8) , rep("BBTO" , 8) , rep("BWVI" , 8) , rep("CMWA" , 8) , rep("NOPA" , 8) , rep("OVEN" , 8) , rep("PAWA" , 8) , rep("PRAW" , 8) , rep("YRWA" , 8) )
-Behavior <- rep(c("Consuming Plant" , "Drinking Nectar" , "Flycatching", "Gleaning", "Hover-Gleaning", "Poking Ground", "Pounching", "Snatching") , 10)
+Technique <- rep(c("Consuming Plant" , "Drinking Nectar" , "Flycatching", "Gleaning", "Hover-Gleaning", "Poking Ground", "Pounching", "Snatching") , 10)
 Proportion <- abs(Stacked$V3)
-data <- data.frame(Species,Behavior,Proportion)
+data <- data.frame(Species,Technique,Proportion)
 
-# sort data for standardized
+# Step 2: Assign order, colors and patterns ---- 
 sorted_data <- data
 
 # Restructure the species order: BBTO and BWVI first, followed by the others
 sorted_data$Species <- factor(sorted_data$Species,
-                              c("BBTO", "BWVI", "OVEN", "PAWA", "YRWA", "AMRE", "PRAW", "BAWW", "NOPA", "CMWA"))
+                   c("BBTO", "BWVI", "OVEN", "PAWA", "YRWA", "AMRE", "PRAW", "BAWW", "NOPA", "CMWA"))
 
-behavior_patterns <- c(
+Technique_patterns <- c(
   "Consuming Plant" = "stripe",
   "Drinking Nectar" = "crosshatch",
   "Flycatching" = "circle",
@@ -55,7 +53,7 @@ behavior_patterns <- c(
   "Pounching" = "circle",
   "Snatching" = "none")
 
-behavior_colors <- c(
+Technique_colors <- c(
   "Consuming Plant" = "#D55E00",        
   "Drinking Nectar" = "gold",        
   "Flycatching" = "#0072B2",           
@@ -65,12 +63,12 @@ behavior_colors <- c(
   "Pounching" = "#CC79A7",             
   "Snatching" = "#999999")
 
-# Plot with manually set colors
-figure2A <- ggplot(sorted_data, aes(x = Species, y = Proportion, fill = Behavior, pattern = Behavior)) +
+# Step 3: Plot ----
+figure2A <- ggplot(sorted_data, aes(x = Species, y = Proportion, fill = Technique, pattern = Technique)) +
   geom_bar_pattern(stat = "identity", position = "fill", pattern_density = 0.15, pattern_fill = "black", pattern_spacing = 0.02, pattern_key_scale_factor = 0.6) +
-  scale_fill_manual(values = behavior_colors) +
-  scale_pattern_manual(values = behavior_patterns) +
-  labs(fill = "Foraging Behavior", pattern = "Foraging Behavior", x = "Species", y = "Proportion\n") +
+  scale_fill_manual(values = Technique_colors) +
+  scale_pattern_manual(values = Technique_patterns) +
+  labs(fill = "Foraging Technique", pattern = "Foraging Technique", x = "Species", y = "Proportion\n") +
   theme_minimal() +
   theme(
     text = element_text(size = 20, color = "black"),
@@ -82,18 +80,18 @@ figure2A <- ggplot(sorted_data, aes(x = Species, y = Proportion, fill = Behavior
     axis.text.x = element_text(angle = 30, hjust = 1, size = 16, color = "black",
                                    face = ifelse(levels(sorted_data$Species) %in% c("BBTO", "BWVI"), "bold", "plain")))
 figure2A <- ggdraw(figure2A) + draw_plot_label(label = "A", x = 0.005, y = 0.98, size = 22, fontface = "bold")  # adjust x, y as needed
-figure2A
 
-ggsave(filename = "Figure2A.png", plot = figure2A, width = 10, height = 6, dpi = 1000, units = "in")
+ggsave(filename = "Figure2A.jpeg", plot = figure2A, width = 10, height = 6, dpi = 1000, units = "in")
+
 
 
 #______________________________________________________________________________
 
-#                     FORAGING SUBSTRATE BAR PLOT 
+#                     FORAGING SUBSTRATE BAR PLOT ----
 
-# throughout the code, this is referred to as Foraging Location
+# Note: throughout the code, this is referred to as Foraging Location
 
-# Define substrate mapping and desired factor levels. Group similar substrate types
+# Step 1: Define substrate mapping and desired factor levels. ----
 substrate_map <- c(
   "G" = "Ground", "D" = "Dead Material", "T" = "Trunk",
   "S" = "Branch", "B" = "Branch",
@@ -107,7 +105,7 @@ location_order <- c("Ground", "Dead Material", "Trunk",
                     "Branch", "Twig", "Leaf", 
                     "Flower/Berry", "Other")
 
-# Aggregate and align data
+# Step 2: Aggregate and align data ----
 sorted_data <- Combined_Location %>%
   rename(Species = V1, Code = V2, Value = V3) %>%
   mutate(Category = substrate_map[Code]) %>%
@@ -131,16 +129,6 @@ foraging_colors <- c(
   "Flower/Berry" = "#CC79A7",
   "Other" = "#999999"
 )
-
-substrate_patterns <- c(
-  "Ground" = "stripe",
-  "Dead Material" = "crosshatch",
-  "Trunk" = "circle",
-  "Branch" = "none",
-  "Twig" = "stripe",
-  "Leaf" = "crosshatch",
-  "Flower/Berry" = "circle",
-  "Other" = "none")
 
 substrate_patterns <- c(
   "Ground" = "none",
@@ -170,23 +158,22 @@ figure3A <- ggplot(sorted_data,aes(fill = Foraging_Location,y = Proportion,x = S
                                face = ifelse(levels(sorted_data$Species) %in% c("BBTO", "BWVI"), "bold", "plain")))
 
 figure3A <- ggdraw(figure3A) + draw_plot_label(label = "A", x = 0.005, y = 0.98, size = 22, fontface = "bold")  # adjust x, y as needed
-figure3A
 
-ggsave(filename = "Figure3A.png", plot = figure3A, width = 10, height = 6, dpi = 1000, units = "in")
+ggsave(filename = "Figure3A.jpeg", plot = figure3A, width = 10, height = 6, dpi = 1000, units = "in")
 
 
 
 #______________________________________________________________________________
 
-#                   DOT AND WHISKER PLOT FOR BIRD/CANOPY HEIGHT
+#                   DOT AND WHISKER PLOT FOR BIRD/CANOPY HEIGHT ----
 
+# Step 1: select and sort data
 data_filtered <- unsorted_data
 
-# Reorder species so BBTO and BWVI are first
 data_filtered <- data_filtered %>%
   mutate(Species = factor(Species, levels = c("BBTO", "BWVI", setdiff(unique(Species), c("BBTO", "BWVI")))))
 
-# Compute means and confidence intervals for each species
+# Step2: Compute means and confidence intervals for each species ----
 species_summary <- data_filtered %>%
   group_by(Species) %>%
   summarize(
@@ -224,18 +211,19 @@ figure1 <- ggplot(species_summary, aes(x = mean_x, y = mean_y, color = Species, 
     axis.title = element_text(size = 18),
     axis.text = element_text(size = 16))
 
-figure1
+ggsave(filename = "Figure1.jpeg", plot = figure1, width = 8, height = 6, dpi = 1000, units = "in")
 
-ggsave(filename = "Figure1.png", plot = figure1, width = 8, height = 6, dpi = 1000, units = "in")
+
 
 #______________________________________________________________________________
 
-#                        BOXPLOT OF HEIGHT
+#                        BOXPLOT OF FORAGING HEIGHT ----
 
-# sort it by mean height
+# Step 1: sort it by mean height
 unsorted_data <- unsorted_data %>%
   mutate(Species = reorder(Species, Height.in.Canopy, FUN = mean))
 
+#Step 2: Plot
 figure_box <- ggplot(unsorted_data, aes(x = Species, y = Height.in.Canopy, fill = Species)) +
   geom_boxplot(alpha = 0.65, outlier.shape = NA) +
   geom_jitter(width = 0.15, height = 0.02, size = 2, alpha = 0.5) +  # Adjust jitter width here
@@ -248,16 +236,13 @@ figure_box <- ggplot(unsorted_data, aes(x = Species, y = Height.in.Canopy, fill 
     axis.text.y = element_text(size = 14, color = "black"),
     legend.position = "none")
 
-figure_box
 
 # Save the plot
-ggsave(filename = "FigureS2.png", plot = figure_box,
+ggsave(filename = "FigureS2.jpeg", plot = figure_box,
        width = 8, height = 6, dpi = 1000, units = "in")
 
 
 
-#______________________________________________________________________________
-#______________________________________________________________________________
-#______________________________________________________________________________
-#______________________________________________________________________________
-#______________________________________________________________________________
+#_______________________________________________________________________________________________________
+# End of script.
+#_______________________________________________________________________________________________________
