@@ -103,8 +103,8 @@ figure2B <- ggplot(adjusted_pval_table, aes(Species1, Species2, fill = Significa
     name = "Significance") +
   theme_classic() +
   theme(
-    axis.text.x = element_text(angle = 30, hjust = 1, size = 16, color = "black", face = ifelse(levels(sorted_data$Species) %in% c("BBTO", "BWVI"), "bold", "plain")),  # Larger x-axis labels
-    axis.text.y = element_text(size = 16, color = "black", face = ifelse(levels(sorted_data$Species) %in% c("BBTO", "BWVI"), "bold", "plain")),                        # Larger y-axis labels
+    axis.text.x = element_text(angle = 30, hjust = 1, size = 16, color = "black", face = ifelse(levels(adjusted_pval_table$Species1) %in% c("BBTO", "BWVI"), "bold", "plain")),  # Larger x-axis labels
+    axis.text.y = element_text(size = 16, color = "black", face = ifelse(levels(adjusted_pval_table$Species1) %in% c("BBTO", "BWVI"), "bold", "plain")),                        # Larger y-axis labels
     #plot.title = element_text(size = 18, color = "black"),          # Larger title
     axis.title.x = element_text(size = 18, color = "black"),                      # Larger x-axis title
     axis.title.y = element_text(size = 18, color = "black"),                      # Larger y-axis title
