@@ -25,7 +25,7 @@ All scripts used in analysis or in plot creation are included and described with
 All main text plots and supplemental figures are including within the **figures** folder, as well as the map file used for Figure S1. 
 
 ### Acknowledgements
-This research was funded in part by Cornell University and Cornell Lab of Ornithology, Cornell Latin American and Caribbean Studies Program, and the Cornell Atkinson Center for Sustainability. We would like to thank our gracious hosts at the Punta Cana Ecological Foundation. We also would like to thank Maria Teresa Reinoso-Perez who helped with data collection and manuscript review. Author contributions: MDG, AKE, and ERH designed the study and collected behavioral data under the guidance of AAD and KNV. MDG analyzed the data, produced figures and results, and compiled the repository. MDG and AKE composed the manuscript, and all authors contributed to editing and revision. 
+This research was funded in part by Cornell University, Cornell Lab of Ornithology, Cornell Latin American and Caribbean Studies Program, and the Cornell Atkinson Center for Sustainability. We would like to thank our gracious hosts at the Punta Cana Ecological Foundation. We also would like to thank Maria Teresa Reinoso-Perez, who helped with data collection. We’d also like to thank the reviewers of this paper. All necessary state and federal permits were acquired for this study. We declare no conflicts of interest. AUTHOR CONTRIBUTIONS: Conceptualization and Fieldwork: MDG, AKE, ERH, and KNV under the supervision of AAD. Data curation, formal analysis, and visualization: MDG. Writing - Original draft preparation: MDG and AKE. Writing - Review & editing: All authors. Supervision: KNV and AAD.
 
 
 
