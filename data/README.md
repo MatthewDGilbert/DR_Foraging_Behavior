@@ -1,5 +1,5 @@
 # DATA
-WINTER FORAGING BEHAVIOR OF NEOTROPICAL MIGRANTS AND RESIDENTS MAY REVEAL NICHE DIFFERENTIATION
+FORAGING BEHAVIOR OF CO-OCCURRING NEOTROPICAL RESIDENTS AND NON-BREEDING MIGRANTS, A PILOT STUDY IN PUNTA CANA
 
 ### raw_data.csv
 This data frame consists of our raw field data, including notes, information about flocking behavior, coordinates, time, observers, playback information, etc. Since much of this data was not used in our personal analysis, other files have more condensed data which is organized from this original file. 
