@@ -528,7 +528,7 @@ figure_raw_box <- ggplot(unsorted_data, aes(x = species, y = y_jitter, fill = sp
   geom_boxplot(alpha = 0.65, outlier.shape = NA) +
   geom_jitter(width = 0.15, height = 0, size = 2, alpha = 0.5) +
   coord_cartesian(ylim = c(0, 15)) +
-  labs(x = "Species", y = "Observed Foraging Height") +
+  labs(x = "Species", y = "Absolute Foraging Height") +
   theme_minimal() +
   theme(
     text = element_text(size = 18, color = "black"),
